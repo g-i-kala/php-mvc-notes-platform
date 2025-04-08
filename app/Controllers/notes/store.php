@@ -1,9 +1,10 @@
 <?php
 
+use Core\App;
 use Core\Database;
 use Core\Validator;
 
-$db = new Database;
+$db = App::resolve(Database::class);
 
 $errors = [];
 
@@ -16,7 +17,7 @@ if (! Validator::string($_POST['content'], 1, 5000)) {
 }
 
 if (! empty($errors)) {
-    return view('/notes/create.view.php',[
+    return view('/notes/create.view.php', [
         'heading' => 'New Note',
         'errors'  => $errors,
     ]);
@@ -31,4 +32,3 @@ if (! empty($errors)) {
     header("Location: /notes");
     exit();
 };
-
