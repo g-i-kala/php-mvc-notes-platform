@@ -13,8 +13,10 @@ ob_start();
     </div>
 
     <div class="text-left"> 
-        <?= htmlspecialchars($note['content']) ?>
+        <p><?= htmlspecialchars($note['content']) ?></p>
     </div>
+
+
     <form method="POST" class="mt-6">
         <input type="hidden" name="_method" value="DELETE">
         <input type="hidden" name="note_id" value="<?= htmlspecialchars($note['id']) ?>"> 
