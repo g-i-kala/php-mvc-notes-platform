@@ -10,6 +10,8 @@ $router->delete('/note', 'app/controllers/notes/destroy.php');
 $router->get('/notes/create', 'app/controllers/notes/create.php');
 $router->post('/notes', 'app/controllers/notes/store.php');
 
+$router->get('/note/edit', 'app/controllers/notes/edit.php');
+
 $router->get('/login', 'app/views/login.view.php');
 $router->get('/register', 'app/views/register.view.php');
 $router->get('/dashboard', 'app/views/dashboard.view.php');

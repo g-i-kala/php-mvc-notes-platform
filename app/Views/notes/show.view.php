@@ -16,15 +16,11 @@ ob_start();
         <p><?= htmlspecialchars($note['content']) ?></p>
     </div>
 
-
-    <form method="POST" class="mt-6">
-        <input type="hidden" name="_method" value="DELETE">
-        <input type="hidden" name="note_id" value="<?= htmlspecialchars($note['id']) ?>"> 
-        <button class="text-sm text-red-500 hover:cursor-pointer">Delete</button>
-    </form>
-    <div class="my-4">
-        <a href="/notes" class=" text-blue-400 hover:text-blue-700">Back to Notes</a>
-    </div>
+    <footer class="mt-8 space-x-4">
+        <a href="/note/edit?id=<?= $note['id'] ?>" class="inline-block rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-lg hover:bg-green-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit</a>
+        <a href="/notes" class="inline-block rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-lg hover:bg-indigo-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Back to Notes</a>
+    </footer>
+    
 </div>
 
 <?php

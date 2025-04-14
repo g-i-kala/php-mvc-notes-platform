@@ -21,7 +21,7 @@ ob_start();
                             name="title" 
                             d="title" 
                             class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" 
-                            placeholder="Dear diary.."
+                            value="<?= $note['title'] ?>"
                             >
                         </div>
                         <?php if (isset($errors['title'])): ?> 
@@ -38,19 +38,28 @@ ob_start();
                             id="content" 
                             rows="3" 
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                            placeholder="The power lies in the present moment..."
                             maxlength="5000"
                             required
-                            ><?= $_POST['content'] ?? '' ?></textarea>
+                            ><?= $note['content'] ?? '' ?></textarea>
                             <?php if (isset($errors['content'])): ?> 
                                 <p class="text-red-500 font-bold text-sm mt-2"><?= $errors['content'] ?></p>
                             <?php endif; ?>
                     </div>
                 </div>
             </div>
-            <div class="mt-6 flex items-center justify-end gap-x-6">
-                <a href="/notes" type="button" class="text-sm/6 font-semibold text-gray-900">Cancel</a>
-                <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-lg hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+
+
+            <form method="POST" class="mt-6">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="note_id" value="<?= htmlspecialchars($note['id']) ?>"> 
+               
+            </form>
+            <div class="mt-6 flex items-center justify-between gap-x-6">
+                <button class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadowlg hover:bg-red-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Delete</button>
+                <div class="justify-end space-x-4">
+                    <a href="/notes" type="button" class="inline-block rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-lg hover:bg-indigo-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Cancel</a>
+                    <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-lg hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+                </div>
             </div>
         </div>
     </form>
