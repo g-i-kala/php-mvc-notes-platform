@@ -48,6 +48,20 @@ if ($user) {
         'heading' => 'Register',
         'errors'  => $errors,
     ]);
+} else {
+    $db->query("INSERT INTO users(username, email, password) VALUES (:username, :email, :password)", [
+        'username' => $username,
+        'email' => $email,
+        'password' => $password
+    ]);
+
+    $_SESSION['user'] = [
+        'username' => $username,
+        'email' => $email
+    ];
+
+    header("Location: /dashboard");
+    exit();
 }
 
 // yes redurect
