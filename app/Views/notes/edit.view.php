@@ -9,7 +9,9 @@ ob_start();
 ?>
 <div class="mx-auto max-w-7xl py-6 sm-px-6 lg:px-8">
     
-    <form method="POST" action="/notes">
+    <form method="POST" action="/note">
+        <input type="hidden" name="_method" value="PATCH">
+        <input type="hidden" name="note_id" value="<?= htmlspecialchars($note['id']) ?>">
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div class="sm:col-span-4">
                 <label for="title" class="block text-sm/6 font-medium text-gray-900">Title</label>
@@ -25,7 +27,7 @@ ob_start();
                             >
                         </div>
                         <?php if (isset($errors['title'])): ?> 
-                            <p class="text-red-500 font-bold text-sm mt-2"><?= $errors['title'] ?></p>
+                            <p class="text-red-500 font-bold text-sm mt-2"><?= htmlspecialchars($errors['title']) ?></p>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -42,27 +44,26 @@ ob_start();
                             required
                             ><?= $note['content'] ?? '' ?></textarea>
                             <?php if (isset($errors['content'])): ?> 
-                                <p class="text-red-500 font-bold text-sm mt-2"><?= $errors['content'] ?></p>
+                                <p class="text-red-500 font-bold text-sm mt-2"><?= htmlspecialchars($errors['content']) ?></p>
                             <?php endif; ?>
                     </div>
                 </div>
             </div>
-
-
-            <form method="POST" class="mt-6">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="note_id" value="<?= htmlspecialchars($note['id']) ?>"> 
-               
-            </form>
             <div class="mt-6 flex items-center justify-between gap-x-6">
-                <button class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadowlg hover:bg-red-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Delete</button>
+                <button form="note-delete" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadowlg hover:bg-red-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Delete</button>
                 <div class="justify-end space-x-4">
                     <a href="/notes" type="button" class="inline-block rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-lg hover:bg-indigo-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Cancel</a>
-                    <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-lg hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+                    <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-lg hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update</button>
                 </div>
             </div>
         </div>
     </form>
+
+    <form method="POST" action="/note" id="note-delete" class="mt-6">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="note_id" value="<?= htmlspecialchars($note['id']) ?>"> 
+    </form>
+
 </div>
 
 <?php
