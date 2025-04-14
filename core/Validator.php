@@ -1,7 +1,8 @@
 <?php
+
 namespace Core;
 
-class Validator 
+class Validator
 {
     public static function string($value, $min = 1, $max = INF)
     {
@@ -13,8 +14,7 @@ class Validator
     public static function email($value)
     {
         $value = trim($value);
-        
+
         return filter_var($value, FILTER_VALIDATE_EMAIL);
     }
 }
-

@@ -13,7 +13,8 @@ $router->post('/notes', 'app/controllers/notes/store.php');
 $router->get('/note/edit', 'app/controllers/notes/edit.php');
 $router->patch('/note', 'app/controllers/notes/update.php');
 
+$router->get('/register', 'app/controllers/registration/create.php');
+$router->post('/register', 'app/controllers/registration/store.php');
 $router->get('/login', 'app/views/login.view.php');
-$router->get('/register', 'app/views/register.view.php');
 $router->get('/dashboard', 'app/views/dashboard.view.php');
 $router->get('/logout', 'app/views/logout.view.php');
