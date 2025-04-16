@@ -10,7 +10,11 @@ ob_start();
 ?>
 <div class="mx-auto max-w-7xl py-6 sm-px-6 lg:px-8">
     <div class="mx-auto py-8">
-        <h1 class="font-bold">Welcome, <?php echo htmlspecialchars($_SESSION['user']['username']) ?>! </h1>
+        <h1 class="font-bold">Welcome,
+            <?= isset($_SESSION['user'])
+                ? htmlspecialchars($_SESSION['user']['username']) :
+                '<p class="font-normal"> Please log in or register </p>' ?>
+        </h1>
     </div>
 
     <div class="dashboard__content">

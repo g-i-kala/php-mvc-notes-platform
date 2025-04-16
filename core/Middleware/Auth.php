@@ -6,7 +6,7 @@ class Auth
 {
     public function handle()
     {
-        if (! isset($_SESSION['user_id']) ?? false) {
+        if (! isset($_SESSION['user']) ?? false) {
             header("Location: /");
             exit();
         }
