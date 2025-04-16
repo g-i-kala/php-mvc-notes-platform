@@ -17,4 +17,4 @@ $router->get('/register', 'app/controllers/registration/create.php')->only('gues
 $router->post('/register', 'app/controllers/registration/store.php');
 $router->get('/login', 'app/views/login.view.php');
 $router->get('/dashboard', 'app/views/dashboard.view.php');
-$router->get('/logout', 'app/views/logout.view.php');
+$router->get('/logout', 'app/controllers/logout.php');
