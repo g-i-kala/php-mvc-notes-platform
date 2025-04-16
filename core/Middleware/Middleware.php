@@ -14,7 +14,7 @@ class Middleware
         if (! $key) {
             return;
         }
-        $middleware = static::MAP[$key];
+        $middleware = static::MAP[$key] ?? false;
 
         if (! $middleware) {
             throw new \Exception("No mathcing middleware fount for key '{$key}'.");

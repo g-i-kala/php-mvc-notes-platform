@@ -52,7 +52,7 @@ if ($user) {
     $db->query("INSERT INTO users(username, email, password) VALUES (:username, :email, :password)", [
         'username' => $username,
         'email' => $email,
-        'password' => $password
+        'password' => password_hash($password, PASSWORD_BCRYPT)
     ]);
 
     $_SESSION['user'] = [
