@@ -44,10 +44,12 @@
                         <a href="/about"
                             class="<?= isUrl('/about') ? 'bg-gray-900' : 'bg-gray-800' ; ?> rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700"
                             aria-current="page">About</a>
-                        <a href="/notes"
+                        <?php if ($_SESSION['user'] ?? false) : ?>
+                            <a href="/notes"
                             class="<?= isUrl('/contact') ? 'bg-gray-900' : 'bg-gray-800' ; ?> rounded-md  px-3 py-2 text-sm font-medium text-white hover:bg-gray-700"
                             aria-current="page">Notes</a>
-                        <a href="/contact"
+                        <?php endif; ?>
+                            <a href="/contact"
                             class="<?= isUrl('/contact') ? 'bg-gray-900' : 'bg-gray-800' ; ?> rounded-md  px-3 py-2 text-sm font-medium text-white hover:bg-gray-700"
                             aria-current="page">Contact</a>
                     </div>
