@@ -7,7 +7,7 @@ ob_start();
 
     <div class="dashboard__content">
         <h1> Welcome, <?= isset($_SESSION['user']) ? $_SESSION['user']['username'] : 'Guest'  ?> </h1>
-        #dajse
+        #dajse 
     </div>
 
 
@@ -15,5 +15,5 @@ ob_start();
 
 <?php
 $content = ob_get_clean();
-include 'layout.view.php';
+include __DIR__ . '/layout.view.php';
 ?>

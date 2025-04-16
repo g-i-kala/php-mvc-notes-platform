@@ -12,7 +12,7 @@ ob_start();
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form action="/login" method="POST" id="login-form" class="space-y-6">
+        <form action="/session" method="POST" id="login-form" class="space-y-6">
         
         <div>
             <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
@@ -46,8 +46,8 @@ ob_start();
                 autocomplete="current-password" 
                 required
                 >
-                <?php if (isset($errors['password'])): ?> 
-                    <p class="text-red-500 font-bold text-sm mt-2 whitespace-normal"><?= $errors['password'] ?></p>
+                <?php if (isset($errors['login'])): ?> 
+                    <p class="text-red-500 font-bold text-sm mt-2 whitespace-normal"><?= $errors['login'] ?></p>
                 <?php endif; ?>
             </div>
         </div>
@@ -67,5 +67,5 @@ ob_start();
 
 <?php
 $content = ob_get_clean();
-include __DIR__ . '/layout.view.php';
+include __DIR__ . '/../layout.view.php';
 ?>

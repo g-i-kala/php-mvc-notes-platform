@@ -16,8 +16,8 @@ $router->patch('/note', 'app/controllers/notes/update.php');
 $router->get('/register', 'app/controllers/registration/create.php')->only('guest');
 $router->post('/register', 'app/controllers/registration/store.php');
 
-$router->get('/login', 'app/views/login.view.php');
-$router->post('/login', 'app/controllers/login.php');
+$router->get('/session', 'app/controllers/session/create.php')->only('guest');
+$router->post('/session', 'app/controllers/session/store.php')->only('guest');
+$router->delete('/session', 'app/controllers/session/destroy.php')->only('auth');
 
 $router->get('/dashboard', 'app/views/dashboard.view.php')->only('auth');
-$router->get('/logout', 'app/controllers/logout.php');

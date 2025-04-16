@@ -57,11 +57,15 @@
                 <div
                     class="absolute inset-y-0 right-0 flex items-center space-x-2 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <?php if ($_SESSION['user'] ?? false) : ?>
-                    <a href="/logout"
-                        class="size-fit text-white bg-indigo-700 hover:bg-indigo-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Log
-                        Out</a>
+                    <div>
+                        <form method="POST" action="/session" id="logout">
+                            <input type="hidden" name="_method" value="DELETE">    
+                            <button form="logout" type="submit" class="size-fit text-white bg-indigo-700 hover:bg-indigo-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Log Out</button>
+                        </form>
+                    </div>
+                    
                     <?php else : ?>
-                        <a href="/login"
+                        <a href="/session"
                         class="text-white bg-indigo-700 hover:bg-indigo-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Log
                         In</a>
                     <a href="/register"
