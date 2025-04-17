@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Forms\LoginForm;
-use Core\App;
-use Core\Validator;
+use Core\Authenticator;
 
 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 $password = $_POST['password'];
@@ -23,18 +22,17 @@ if (! $errors) {
     ]);
 }
 
-if (! $form->attempt($email, $password)) {
+$auth = new Authenticator();
+
+if (! $auth->attempt($email, $password)) {
 
     view('session/login.view.php', [
         'heading' => 'Login',
-        'errors' => $form->getErrors()
+        'errors' => $auth->getErrors()
     ]);
 }
 
-
-if (! $form->getErrors()) {
-
-    $form->login();
+if (! $auth->getErrors()) {
 
     redirect('/');
 

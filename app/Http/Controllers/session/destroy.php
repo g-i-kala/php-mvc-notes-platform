@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Forms\LoginForm;
+use Core\Authenticator;
 
-$auth = new LoginForm();
+$auth = new Authenticator();
 $auth->logout();
 
 header('Location: /');
