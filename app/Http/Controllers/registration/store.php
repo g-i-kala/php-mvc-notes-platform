@@ -1,31 +1,30 @@
 <?php
 
+use App\Http\Forms\LoginForm;
 use Core\App;
 use Core\Database;
 use Core\Validator;
+use DeepCopy\Filter\Filter;
 
-$username = $_POST['username'];
-$email = $_POST['email'];
+$username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
+$email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 $password = $_POST['password'];
 
 $errors = [];
 
-if (! Validator::string($username, 1, 254)) {
-    $errors['username'] = "Username of not more than 50 charakters is required.";
-}
+$form = new LoginForm();
 
-if (! Validator::email($email)) {
-    $errors['email'] = "Please enter a proper email addrees.";
-}
+$errors = $form->validate([
+    'username' => $username,
+    'email'    => $email,
+    'password' => $password
+]);
 
-if (! Validator::string($password, 6, 254)) {
-    $errors['password'] = "Password minimum 6 charakters is required.";
-}
 
-if (! empty($errors)) {
+if (! $errors) {
     return view('/registration/create.view.php', [
         'heading' => 'Register',
-        'errors'  => $errors,
+        'errors'  => $form->getErrors()
     ]);
 }
 
