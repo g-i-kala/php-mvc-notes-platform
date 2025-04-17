@@ -63,6 +63,3 @@ if ($user) {
     header("Location: /dashboard");
     exit();
 }
-
-// yes redurect
-// no create to databes -> log -> riderect

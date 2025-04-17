@@ -61,7 +61,7 @@ class Router
 
                 Middleware::resolve($route['middleware']);
 
-                return require_once base_path($route['controller']);
+                return require_once base_path('app/controllers/' . $route['controller']);
             }
         }
 
