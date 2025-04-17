@@ -49,25 +49,8 @@ function view($viewName, $attributes = [])
     require base_path("app/views/" . $viewName);
 }
 
-function login($user)
+function redirect($path)
 {
-
-    $_SESSION['user'] = [
-        'id' => $user['user_id'],
-        'username' => $user['username'],
-        'email' => $user['email']
-    ];
-
-    session_regenerate_id(true);
-
-}
-
-function logout()
-{
-    $_SESSION = [];
-    session_unset();
-    session_destroy();
-
-    $params = session_get_cookie_params();
-    setcookie('PHPSESSID', '', time() - 3600, $params['path'], $params['domain']);
+    header("Location: {$path}");
+    exit();
 }

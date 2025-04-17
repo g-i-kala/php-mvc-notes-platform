@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Forms\LoginForm;
 use Core\App;
 use Core\Database;
 use Core\Validator;
 use DeepCopy\Filter\Filter;
+use App\Http\Forms\RegisterForm;
 
 $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
@@ -12,7 +12,7 @@ $password = $_POST['password'];
 
 $errors = [];
 
-$form = new LoginForm();
+$form = new RegisterForm();
 
 $errors = $form->validate([
     'username' => $username,

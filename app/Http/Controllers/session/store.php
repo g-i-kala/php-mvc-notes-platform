@@ -1,48 +1,41 @@
 <?php
 
+use App\Http\Forms\LoginForm;
 use Core\App;
-use Core\Database;
 use Core\Validator;
 
-$db = App::resolve(Database::class);
-
-$email = $_POST['email'];
+$email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 $password = $_POST['password'];
 
 $errors = [];
 
-if (! Validator::email($email)) {
-    $errors['email'] = "Please enter a proper email addrees.";
-}
+$form = new LoginForm();
 
-if (! Validator::string($password)) {
-    $errors['password'] = "Password minimum 6 charakters is required.";
-}
-
-if (! empty($errors)) {
-    return view('/session/create.view.php', [
-        'heading' => 'Login',
-        'errors'  => $errors,
-    ]);
-}
-
-$user = $db->query("SELECT * FROM users WHERE email = :email", [
-    'email' => $email
-])->find();
-
-if (! $user || ! password_verify($password, $user['password'])) {
-    $errors['login'] = "Incorect credentials.";
-    view('session/login.view.php', [
-        'heading' => 'Login',
-        'errors' => $errors
-    ]);
-}
+$errors = $form->validate([
+    'email' => $email,
+    'password' => $password
+]);
 
 if (! $errors) {
+    return view('session/login.view.php', [
+        'heading' => 'Login',
+        'errors'  => $form->getErrors()
+    ]);
+}
 
-    login($user);
+if (! $form->attempt($email, $password)) {
 
-    header("Location: /dashboard");
-    exit();
+    view('session/login.view.php', [
+        'heading' => 'Login',
+        'errors' => $form->getErrors()
+    ]);
+}
+
+
+if (! $form->getErrors()) {
+
+    $form->login();
+
+    redirect('/');
 
 }
