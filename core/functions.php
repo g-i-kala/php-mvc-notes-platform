@@ -49,6 +49,14 @@ function view($viewName, $attributes = [])
     require base_path("app/views/" . $viewName);
 }
 
+function renderLoginView($errors)
+{
+    return view('session/login.view.php', [
+        'heading' => 'Login',
+        'errors' => $errors
+    ]);
+}
+
 function redirect($path)
 {
     header("Location: {$path}");

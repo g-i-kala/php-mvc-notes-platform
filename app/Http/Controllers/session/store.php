@@ -16,20 +16,14 @@ $errors = $form->validate([
 ]);
 
 if (! $errors) {
-    return view('session/login.view.php', [
-        'heading' => 'Login',
-        'errors'  => $form->getErrors()
-    ]);
+    return renderLoginView($form->getErrors());
 }
 
 $auth = new Authenticator();
 
 if (! $auth->attempt($email, $password)) {
 
-    view('session/login.view.php', [
-        'heading' => 'Login',
-        'errors' => $auth->getErrors()
-    ]);
+    return renderLoginView($auth->getErrors());
 }
 
 if (! $auth->getErrors()) {
