@@ -2,6 +2,7 @@
 
 use App\Http\Forms\LoginForm;
 use Core\Authenticator;
+use Core\Session;
 
 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 $password = $_POST['password'];
@@ -16,14 +17,15 @@ $errors = $form->validate([
 ]);
 
 if (! $errors) {
-    return renderLoginView($form->getErrors());
+    Session::flash('errors', $form->getErrors());
+    return redirect('/login');
 }
 
 $auth = new Authenticator();
 
 if (! $auth->attempt($email, $password)) {
-
-    return renderLoginView($auth->getErrors());
+    Session::flash('errors', $auth->getErrors());
+    return redirect('/login');
 }
 
 if (! $auth->getErrors()) {
