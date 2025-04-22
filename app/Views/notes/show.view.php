@@ -4,6 +4,8 @@
 //     exit();
 // }
 
+/** @var array{title: string, body: string} $note */
+
 ob_start();
 
 ?>

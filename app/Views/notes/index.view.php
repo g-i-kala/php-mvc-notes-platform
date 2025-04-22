@@ -3,6 +3,7 @@
 //     header("Location: login.php");
 //     exit();
 // }
+/** @var array<array{id: string, title: string}> $notes */
 
 ob_start();
 
