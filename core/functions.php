@@ -17,7 +17,7 @@ function dd($variable): never
     die();
 }
 
-function abort($code = 404)
+function abort($code = 404): void
 {
     http_response_code($code);
 
@@ -32,7 +32,7 @@ function abort($code = 404)
     exit();
 }
 
-function authorize($condition, $status = Response::FORBIDDEN)
+function authorize($condition, $status = Response::FORBIDDEN): void
 {
     if (! $condition) {
         abort($status);
@@ -44,7 +44,7 @@ function base_path($path)
     return BASE_PATH . $path;
 }
 
-function view($viewName, $attributes = [])
+function view($viewName, $attributes = []): void
 {
     extract($attributes);
     require base_path("app/views/" . $viewName);
