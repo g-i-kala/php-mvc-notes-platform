@@ -14,19 +14,33 @@ $errors = [];
 
 $form = new RegisterForm();
 
-$errors = $form->validate([
+if (! $form->validate([
     'username' => $username,
     'email'    => $email,
     'password' => $password,
-]);
+])) {
+    $errors = $form->getErrors();
 
-
-if (! $errors) {
-    return view('/registration/create.view.php', [
+    return view('registration/create.view.php', [
         'heading' => 'Register',
         'errors'  => $form->getErrors(),
     ]);
 }
+
+
+// $errors = $form->validate([
+//     'username' => $username,
+//     'email'    => $email,
+//     'password' => $password,
+// ]);
+
+
+// if (! $errors) {
+//     return view('/registration/create.view.php', [
+//         'heading' => 'Register',
+//         'errors'  => $form->getErrors(),
+//     ]);
+// }
 
 // check if unique
 $db = App::resolve(Database::class);
@@ -43,7 +57,7 @@ if ($user) {
         $errors['email'] = 'Email already taken.';
     }
 
-    return view('/registration/create.view.php', [
+    return view('registration/create.view.php', [
         'heading' => 'Register',
         'errors'  => $errors,
     ]);

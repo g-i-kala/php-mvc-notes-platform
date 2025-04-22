@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Core\App;
-use Core\Database;
 use Core\Container;
+use Core\Database;
 
 $container = new Container();
 
