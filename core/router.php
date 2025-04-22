@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Core;
 
-use Core\Middleware\Auth;
-use Core\Middleware\Guest;
 use Core\Middleware\Middleware;
 
 class Router
@@ -16,7 +16,7 @@ class Router
             'uri'           => $uri,
             'controller'    => $controller,
             'method'        => $method,
-            'middleware'    => null
+            'middleware'    => null,
         ];
 
         return $this;
@@ -57,7 +57,7 @@ class Router
     {
         foreach ($this->routes as $route) {
 
-            if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
+            if ($route['uri'] === $uri && $route['method'] === strtoupper((string) $method)) {
 
                 Middleware::resolve($route['middleware']);
 

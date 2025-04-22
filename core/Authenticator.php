@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Core;
 
 class Authenticator
@@ -11,11 +13,11 @@ class Authenticator
     {
         $this->user = App::resolve(Database::class)
             ->query("SELECT * FROM users WHERE email = :email", [
-            'email' => $email
-        ])->find();
+                'email' => $email,
+            ])->find();
 
         if ($this->user) {
-            if (password_verify($password, $this->user['password'])) {
+            if (password_verify((string) $password, (string) $this->user['password'])) {
                 $this->login();
 
                 return true;
@@ -33,7 +35,7 @@ class Authenticator
         $_SESSION['user'] = [
             'id' => $this->user['user_id'],
             'username' => $this->user['username'],
-            'email' => $this->user['email']
+            'email' => $this->user['email'],
         ];
 
         session_regenerate_id(true);

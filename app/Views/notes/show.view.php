@@ -15,7 +15,7 @@ ob_start();
     </div>
 
     <div class="text-left"> 
-        <p><?= htmlspecialchars($note['content']) ?></p>
+        <p><?= htmlspecialchars((string) $note['content']) ?></p>
     </div>
 
     <footer class="mt-8 space-x-4">

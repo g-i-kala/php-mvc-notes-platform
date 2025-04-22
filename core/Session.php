@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Core;
 
 class Session
@@ -41,6 +43,6 @@ class Session
         session_destroy();
 
         $params = session_get_cookie_params();
-        setcookie('PHPSESSID', '', time() - 3600, $params['path'], $params['domain']);
+        setcookie('PHPSESSID', '', ['expires' => time() - 3600, 'path' => $params['path'], 'domain' => $params['domain']]);
     }
 }

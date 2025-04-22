@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 session_start();
 
 const BASE_PATH = __DIR__ . '/../';
@@ -14,7 +16,7 @@ $router = new Router();
 
 $routes = require base_path('routes/web.php');
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$uri = parse_url((string) $_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
 $router->route($uri, $method);

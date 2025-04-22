@@ -1,6 +1,7 @@
 <?php
 
-use Core\Router;
+declare(strict_types=1);
+
 use Core\Response;
 
 function isUrl($value)
@@ -8,7 +9,7 @@ function isUrl($value)
     return $_SERVER['REQUEST_URI'] === $value;
 }
 
-function dd($variable)
+function dd($variable): never
 {
     echo '<pre>';
     var_dump($variable);
@@ -53,11 +54,11 @@ function renderLoginView($errors)
 {
     return view('session/login.view.php', [
         'heading' => 'Login',
-        'errors' => $errors
+        'errors' => $errors,
     ]);
 }
 
-function redirect($path)
+function redirect($path): never
 {
     header("Location: {$path}");
     exit();

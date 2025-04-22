@@ -6,7 +6,7 @@ ob_start();
     <!-- error messages -->
     <?php if (isset($_GET['error'])) : ?>
     <div class="error-message text-red-900 py-2">
-        <?php echo htmlspecialchars($_GET['error']); ?>
+        <?php echo htmlspecialchars((string) $_GET['error']); ?>
     </div>
     <?php endif;?>
 
@@ -27,7 +27,7 @@ ob_start();
                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 autocomplete="usernaem" 
                 required
-                value="<?php echo isset($_GET["username"]) ? htmlspecialchars($_GET["username"]) : '';  ?>" >
+                value="<?php echo isset($_GET["username"]) ? htmlspecialchars((string) $_GET["username"]) : '';  ?>" >
                 <?php if (isset($errors['username'])): ?> 
                     <p class="text-red-500 font-bold text-sm mt-2 whitespace-normal"><?= $errors['username'] ?></p>
                 <?php endif; ?>
@@ -41,11 +41,11 @@ ob_start();
                 id="email" 
                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 autocomplete="email" 
-                value="<?php echo isset($_GET["email"]) ? htmlspecialchars($_GET["email"]) : '' ?>"
+                value="<?php echo isset($_GET["email"]) ? htmlspecialchars((string) $_GET["email"]) : '' ?>"
                 required 
                 >
                 <?php if (isset($errors['email'])): ?> 
-                    <p class="text-red-500 font-bold text-sm mt-2 whitespace-normal"><?= $errors['email'] ?></p>
+                    <p class="text-red-500 font-bold text-sm mt-2 whitespace-normal"><?= htmlspecialchars((string) $errors['email']) ?></p>
                 <?php endif; ?>
             </div>
         </div>
@@ -66,7 +66,7 @@ ob_start();
                 required
                 >
                 <?php if (isset($errors['password'])): ?> 
-                    <p class="text-red-500 font-bold text-sm mt-2 whitespace-normal"><?= $errors['password'] ?></p>
+                    <p class="text-red-500 font-bold text-sm mt-2 whitespace-normal"><?= htmlspecialchars((string) $errors['password']) ?></p>
                 <?php endif; ?>
             </div>
         </div>

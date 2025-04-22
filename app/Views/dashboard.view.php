@@ -12,7 +12,7 @@ ob_start();
     <div class="mx-auto py-8">
         <h1 class="font-bold">Welcome,
             <?= isset($_SESSION['user'])
-                ? htmlspecialchars($_SESSION['user']['username']) :
+                ? htmlspecialchars((string) $_SESSION['user']['username']) :
                 '<p class="font-normal"> Please log in or register </p>' ?>
         </h1>
     </div>

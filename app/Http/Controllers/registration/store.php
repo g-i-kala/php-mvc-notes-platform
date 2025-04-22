@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
+use App\Http\Forms\RegisterForm;
 use Core\App;
 use Core\Database;
-use Core\Validator;
-use DeepCopy\Filter\Filter;
-use App\Http\Forms\RegisterForm;
 
-$username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
+$username = htmlspecialchars((string) $_POST['username'], ENT_QUOTES, 'UTF-8');
 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 $password = $_POST['password'];
 
@@ -17,14 +17,14 @@ $form = new RegisterForm();
 $errors = $form->validate([
     'username' => $username,
     'email'    => $email,
-    'password' => $password
+    'password' => $password,
 ]);
 
 
 if (! $errors) {
     return view('/registration/create.view.php', [
         'heading' => 'Register',
-        'errors'  => $form->getErrors()
+        'errors'  => $form->getErrors(),
     ]);
 }
 
@@ -32,7 +32,7 @@ if (! $errors) {
 $db = App::resolve(Database::class);
 $user = $db->query("SELECT * FROM users WHERE username = :username OR email = :email", [
     'username' => $username,
-    'email' => $email
+    'email' => $email,
 ])->find();
 
 if ($user) {
@@ -51,12 +51,12 @@ if ($user) {
     $db->query("INSERT INTO users(username, email, password) VALUES (:username, :email, :password)", [
         'username' => $username,
         'email' => $email,
-        'password' => password_hash($password, PASSWORD_BCRYPT)
+        'password' => password_hash((string) $password, PASSWORD_BCRYPT),
     ]);
 
     $_SESSION['user'] = [
         'username' => $username,
-        'email' => $email
+        'email' => $email,
     ];
 
     header("Location: /dashboard");
