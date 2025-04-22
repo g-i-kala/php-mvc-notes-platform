@@ -58,6 +58,8 @@ Welcome to the Notes Platform! This project is a simple notes application built 
 - **Routing**: Custom routing class to handle HTTP requests.
 - **Authentication**: (Planned) Implement proper user authentication.
 - **Styling**: Tailwind CSS for modern and responsive design.
+- **Testing**: Pest Framework.
+- **Utilites**: php-cs-fixer, PHPSTAN & Rector.
 
 ## Installation
 
