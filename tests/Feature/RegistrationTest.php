@@ -19,8 +19,8 @@ afterEach(function () {
 
 it('redirects if registration is successful', function () {
     $_POST = [
-        'username' => 'Jane',
-        'email' => 'jane@example.com',
+        'username' => 'Jane' . uniqid(),
+        'email' => 'jane' . uniqid() . '@example.com',
         'password' => 'password123',
     ];
 
@@ -30,15 +30,16 @@ it('redirects if registration is successful', function () {
 
 });
 
-it('renders the create.view.php with errors on invalid input', function () {
+it('redirects with errors on invalid input', function () {
     $_POST = [
         'username' => 'Jane',
         'email' => 'not-an-email',
-        'password' => 'password123',
+        'password' => '1',
     ];
 
     include __DIR__ . '/../../app/Http/Controllers/registration/store.php';
 
-    expect($GLOBALS['viewRendered'])->toBe('registration/create.view.php');
-    expect($GLOBALS['viewData'])->toHaveKey('errors');
+    expect($GLOBALS['redirect_to'])->toBe('/register');
+    expect($_SESSION['_flash']['errors'])->toBeArray();
+
 });

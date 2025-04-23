@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Http\Forms\LoginForm;
 use Core\Authenticator;
 use Core\Session;
@@ -13,7 +15,7 @@ $form = new LoginForm();
 
 $errors = $form->validate([
     'email' => $email,
-    'password' => $password
+    'password' => $password,
 ]);
 
 if (! $errors) {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Forms\RegisterForm;
 use Core\App;
 use Core\Database;
+use Core\Session;
 
 $username = htmlspecialchars((string) $_POST['username'], ENT_QUOTES, 'UTF-8');
 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
@@ -21,26 +22,9 @@ if (! $form->validate([
 ])) {
     $errors = $form->getErrors();
 
-    return view('registration/create.view.php', [
-        'heading' => 'Register',
-        'errors'  => $form->getErrors(),
-    ]);
+    Session::flash('errors', $form->getErrors());
+    return redirect('/register');
 }
-
-
-// $errors = $form->validate([
-//     'username' => $username,
-//     'email'    => $email,
-//     'password' => $password,
-// ]);
-
-
-// if (! $errors) {
-//     return view('/registration/create.view.php', [
-//         'heading' => 'Register',
-//         'errors'  => $form->getErrors(),
-//     ]);
-// }
 
 // check if unique
 $db = App::resolve(Database::class);
@@ -57,10 +41,9 @@ if ($user) {
         $errors['email'] = 'Email already taken.';
     }
 
-    return view('registration/create.view.php', [
-        'heading' => 'Register',
-        'errors'  => $errors,
-    ]);
+    Session::flash('errors', $errors);
+    return redirect('/register');
+
 } else {
     $db->query("INSERT INTO users(username, email, password) VALUES (:username, :email, :password)", [
         'username' => $username,
@@ -73,13 +56,9 @@ if ($user) {
         'email' => $email,
     ];
 
-    // header("Location: /dashboard");
-    // exit();
-
     if (defined('TESTING')) {
         $GLOBALS['redirect_to'] = '/dashboard';
     } else {
-        header("Location: /dashboard");
-        exit();
+        redirect('/');
     }
 }

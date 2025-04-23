@@ -64,8 +64,13 @@ function renderLoginView($errors)
     ]);
 }
 
-function redirect($path): never
+function redirect($path): void
 {
+    if (defined('TESTING')) {
+        $GLOBALS['redirect_to'] = $path;
+        return;
+    }
+
     header("Location: {$path}");
     exit();
 }
