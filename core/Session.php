@@ -45,4 +45,5 @@ class Session
         $params = session_get_cookie_params();
         setcookie('PHPSESSID', '', ['expires' => time() - 3600, 'path' => $params['path'], 'domain' => $params['domain']]);
     }
+
 }

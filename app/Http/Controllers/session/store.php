@@ -26,9 +26,16 @@ if (! $errors) {
 $auth = new Authenticator();
 
 if (! $auth->attempt($email, $password)) {
+
     Session::flash('errors', $auth->getErrors());
+    Session::flash('old', [
+        'email' => $email,
+    ]);
+
     return redirect('/login');
 }
+
+
 
 if (! $auth->getErrors()) {
 
