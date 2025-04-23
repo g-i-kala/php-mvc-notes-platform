@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+define('TESTING', true);
 define('BASE_PATH', dirname(__DIR__) . '/../');
 
 beforeEach(function () {
@@ -15,6 +16,7 @@ afterEach(function () {
     ob_end_clean(); // clean output buffer
 });
 
+
 it('redirects if registration is successful', function () {
     $_POST = [
         'username' => 'Jane',
@@ -24,20 +26,19 @@ it('redirects if registration is successful', function () {
 
     include __DIR__ . '/../../app/Http/Controllers/registration/store.php';
 
-    // Check if the correct redirect Location header is set
-    expect(headers_sent())->toBeTrue();
-    expect(headers_list())->toContain('Location: /dashboard');
+    expect($GLOBALS['redirect_to'])->toBe('/dashboard');
+
 });
 
-it('shows error on invalid email', function () {
+it('renders the create.view.php with errors on invalid input', function () {
     $_POST = [
-        'name' => 'Jane',
+        'username' => 'Jane',
         'email' => 'not-an-email',
         'password' => 'password123',
     ];
 
     include __DIR__ . '/../../app/Http/Controllers/registration/store.php';
 
-    // You might set $_SESSION['errors'] or something like that
-    expect($_SESSION['errors'])->toHaveKey('email');
+    expect($GLOBALS['viewRendered'])->toBe('registration/create.view.php');
+    expect($GLOBALS['viewData'])->toHaveKey('errors');
 });

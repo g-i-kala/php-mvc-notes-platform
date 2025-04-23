@@ -73,6 +73,13 @@ if ($user) {
         'email' => $email,
     ];
 
-    header("Location: /dashboard");
-    exit();
+    // header("Location: /dashboard");
+    // exit();
+
+    if (defined('TESTING')) {
+        $GLOBALS['redirect_to'] = '/dashboard';
+    } else {
+        header("Location: /dashboard");
+        exit();
+    }
 }

@@ -46,6 +46,12 @@ function base_path($path)
 
 function view($viewName, $attributes = []): void
 {
+    if (defined('TESTING')) {
+        $GLOBALS['viewRendered'] = $viewName;
+        $GLOBALS['viewData'] = $attributes;
+        return;
+    }
+
     extract($attributes);
     require base_path("app/views/" . $viewName);
 }
