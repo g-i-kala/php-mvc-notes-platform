@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Forms;
 
-use Core\App;
-use Core\Database;
+use Core\ValidationException;
 use Core\Validator;
 
 class LoginForm
@@ -11,18 +12,31 @@ class LoginForm
     protected $errors = [];
     protected $user;
 
-    public function validate($attributes)
+    public function __construct(private array $attributes)
     {
-
-        if (! Validator::email($attributes['email'])) {
+        if (! Validator::email($this->attributes['email'])) {
             $this->errors['login'] = "Please enter a proper email addrees.";
         }
 
-        if (! Validator::string($attributes['password'], 6, 254)) {
+        if (! Validator::string($this->attributes['password'], 6, 254)) {
             $this->errors['login'] = "Password minimum 6 charakters is required.";
         }
+    }
 
-        return empty($this->errors);
+    public static function validate($attributes)
+    {
+        $instance = new static($attributes);
+
+        if ($instance->failed()) {
+            ValidationException::throw($instance->getErrors(), $instance->attributes);
+        }
+
+        return $instance;
+    }
+
+    public function failed()
+    {
+        return count($this->errors);
     }
 
     public function getErrors()
