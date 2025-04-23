@@ -37,8 +37,14 @@ if ($user) {
 
     if ($user['username'] === $username) {
         $errors['username'] = 'Username already taken.';
+        Session::flash('old', [
+            'email' => $email,
+        ]);
     } else {
         $errors['email'] = 'Email already taken.';
+        Session::flash('old', [
+            'username' => $username,
+        ]);
     }
 
     Session::flash('errors', $errors);

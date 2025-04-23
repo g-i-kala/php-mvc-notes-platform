@@ -27,7 +27,7 @@ ob_start();
                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 autocomplete="usernaem" 
                 required
-                value="<?php echo isset($_GET["username"]) ? htmlspecialchars((string) $_GET["username"]) : '';  ?>" >
+                value="<?= old('username') ?>" >
                 <?php if (isset($errors['username'])): ?> 
                     <p class="text-red-500 font-bold text-sm mt-2 whitespace-normal"><?= $errors['username'] ?></p>
                 <?php endif; ?>
@@ -41,7 +41,7 @@ ob_start();
                 id="email" 
                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 autocomplete="email" 
-                value="<?php echo isset($_GET["email"]) ? htmlspecialchars((string) $_GET["email"]) : '' ?>"
+                value="<?= old('email') ?>"
                 required 
                 >
                 <?php if (isset($errors['email'])): ?> 
