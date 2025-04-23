@@ -5,19 +5,19 @@ declare(strict_types=1);
 define('TESTING', true);
 define('BASE_PATH', dirname(__DIR__) . '/../');
 
-beforeEach(function () {
+beforeEach(function (): void {
     $_POST = [];
     $_SESSION = [];
     $errors = [];
     ob_start(); // capture output in case of headers or echo
 });
 
-afterEach(function () {
+afterEach(function (): void {
     ob_end_clean(); // clean output buffer
 });
 
 
-it('redirects if registration is successful', function () {
+it('redirects if registration is successful', function (): void {
     $_POST = [
         'username' => 'Jane' . uniqid(),
         'email' => 'jane' . uniqid() . '@example.com',
@@ -30,7 +30,7 @@ it('redirects if registration is successful', function () {
 
 });
 
-it('redirects with errors on invalid input', function () {
+it('redirects with errors on invalid input', function (): void {
     $_POST = [
         'username' => 'Jane',
         'email' => 'not-an-email',

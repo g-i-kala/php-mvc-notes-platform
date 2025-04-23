@@ -44,31 +44,24 @@ function base_path($path)
     return BASE_PATH . $path;
 }
 
-function view($viewName, $attributes = []): void
+function view($viewName, $attributes = []): string
 {
     if (defined('TESTING')) {
         $GLOBALS['viewRendered'] = $viewName;
         $GLOBALS['viewData'] = $attributes;
-        return;
+        return '';
     }
 
     extract($attributes);
     require base_path("app/views/" . $viewName);
+    return '';
 }
 
-function renderLoginView($errors)
-{
-    return view('session/login.view.php', [
-        'heading' => 'Login',
-        'errors' => $errors,
-    ]);
-}
-
-function redirect($path): void
+function redirect($path): string
 {
     if (defined('TESTING')) {
         $GLOBALS['redirect_to'] = $path;
-        return;
+        return '';
     }
 
     header("Location: {$path}");

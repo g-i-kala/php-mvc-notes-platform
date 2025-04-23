@@ -31,5 +31,15 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
-    }
+    },
+    "scripts": {
+    "check": [
+        "@pest",
+        "@phpstan",
+        "@rector:dry"
+    ],
+    "pest": "vendor/bin/pest",
+    "rector:dry": "vendor/bin/rector process --dry-run",
+    "phpstan": "vendor/bin/phpstan analyse"
+}
 }
