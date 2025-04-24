@@ -6,24 +6,24 @@ namespace Core;
 
 class ValidationException extends \Exception
 {
-    protected $errors = [];
+    public $errors = [];
     protected $old = [];
 
-    public static function throw($errors, $old)
+    public static function throw($errors, $old): never
     {
-        $instance = new static();
+        $instance = new self();
         $instance->errors = $errors;
         $instance->old = $old;
 
         throw $instance;
     }
 
-    public function getErrors()
+    public function getErrors(): array
     {
         return $this->errors;
     }
 
-    public function getOld()
+    public function getOld(): array
     {
         return $this->old;
     }

@@ -11,6 +11,7 @@ class LoginForm
 {
     protected $errors = [];
     protected $user;
+    protected $instance;
 
     public function __construct(private array $attributes)
     {
@@ -25,13 +26,14 @@ class LoginForm
 
     public static function validate($attributes)
     {
-        $instance = new static($attributes);
+        $instance = new self($attributes);
 
-        if ($instance->failed()) {
-            ValidationException::throw($instance->getErrors(), $instance->attributes);
-        }
+        return $instance->failed() ? $instance->throw() : $instance;
+    }
 
-        return $instance;
+    public function throw()
+    {
+        return ValidationException::throw($this->getErrors(), $this->attributes);
     }
 
     public function failed()
@@ -44,8 +46,19 @@ class LoginForm
         return $this->errors;
     }
 
+    public function addError($field, $message)
+    {
+        $this->errors[$field] = $message;
+        return $this;
+    }
+
     public function sanitize()
     {
         //
+    }
+
+    public function valid(): bool
+    {
+        return ! $this->failed();
     }
 }

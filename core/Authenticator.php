@@ -24,7 +24,6 @@ class Authenticator
             }
         }
 
-        $this->errors['login'] = "Incorect credentials.";
         return false;
 
     }

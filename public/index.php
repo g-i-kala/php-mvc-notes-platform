@@ -11,6 +11,7 @@ require base_path('bootstrap.php');
 
 use Core\Router;
 use Core\Session;
+use Core\ValidationException;
 
 $router = new Router();
 
@@ -19,6 +20,17 @@ $routes = require base_path('routes/web.php');
 $uri = parse_url((string) $_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
-$router->route($uri, $method);
+
+try {
+    $router->route($uri, $method);
+} catch (ValidationException $exception) {
+
+    Session::flash('errors', $exception->getErrors());
+    Session::flash('old', [
+        'email' => $exception->getOld()['email'],
+    ]);
+
+    return redirect($router->previousUrl());
+}
 
 Session::unflash();
