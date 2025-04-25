@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Core\App;
 use Core\Database;
 use Core\Validator;
@@ -26,7 +28,7 @@ if (! empty($errors)) {
     $db->query("INSERT INTO notes(title, content, user_id) VALUES (:title, :content, :user_id)", [
         'title' => $_POST['title'],
         'content' => $_POST['content'],
-        'user_id' => 1,
+        'user_id' => $_SESSION['user']['id'],
     ]);
 
     header("Location: /notes");

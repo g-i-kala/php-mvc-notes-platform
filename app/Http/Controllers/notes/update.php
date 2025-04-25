@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Core\App;
 use Core\Database;
 use Core\Validator;
@@ -9,10 +11,10 @@ $db = App::resolve(Database::class);
 // find the note
 
 $note = $db->query("SELECT * FROM notes WHERE id = :id", [
-'id' => $_POST['note_id']])->findOrFail();
+    'id' => $_POST['note_id']])->findOrFail();
 
 // authorize
-$currentUserId = 1;
+$currentUserId = $_SESSION['user']['id'];
 authorize($note['user_id'] === $currentUserId);
 
 // validate
