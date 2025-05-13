@@ -11,6 +11,7 @@ public/js/tailwind.js
 
 # Environment variables file
 .env
+docker/.env
 
 # OS generated files
 .DS_Store

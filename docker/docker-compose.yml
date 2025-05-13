@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: ..
+      dockerfile: docker/php/Dockerfile
+    env_file:
+    - ../.env
+    volumes:
+      - ../:/var/www/html
+    networks:
+      - kcdev_net
+    restart: always
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ../:/var/www/html  # Make sure this points to the root of your app
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8000:80"
+    depends_on:
+      - php
+    networks:
+      - kcdev_net
+    restart: always
+
+networks:
+  kcdev_net:
+    external: true
