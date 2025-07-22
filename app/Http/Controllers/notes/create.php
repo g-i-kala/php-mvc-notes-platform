@@ -1,6 +1,8 @@
 <?php
 
-view('/notes/create.view.php',[
+declare(strict_types=1);
+
+view('/notes/create.view.php', [
     'heading' => 'New Note',
-    'errors'  => []
-]); 
+    'errors'  => [],
+]);

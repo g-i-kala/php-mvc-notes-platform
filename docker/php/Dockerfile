@@ -20,6 +20,9 @@ RUN pecl install xdebug \
 # Copy your custom ini file
 COPY ./docker/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
+# Give xdebug rights to write to tmp/xdebug.log
+RUN touch /tmp/xdebug.log && chmod 666 /tmp/xdebug.log
+
 # Set the working directory
 WORKDIR /var/www/html
 

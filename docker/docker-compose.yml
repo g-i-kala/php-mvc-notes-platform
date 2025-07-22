@@ -9,6 +9,8 @@ services:
     - ../.env
     volumes:
       - ../:/var/www/html
+    extra_hosts:
+      - host.docker.internal:host-gateway
     networks:
       - kcdev_net
     restart: always
