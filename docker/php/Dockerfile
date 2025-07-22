@@ -13,6 +13,13 @@ RUN apt-get update && apt-get install -y \
   && docker-php-ext-install pdo pdo_mysql \ 
   && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Install Xdebug
+RUN pecl install xdebug \
+  && docker-php-ext-enable xdebug
+
+# Copy your custom ini file
+COPY ./docker/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+
 # Set the working directory
 WORKDIR /var/www/html
 
