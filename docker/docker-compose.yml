@@ -28,6 +28,16 @@ services:
       - kcdev_net
     restart: always
 
+  pest:
+    build:
+      context: ..
+      dockerfile: docker/php/Dockerfile
+    command: ./vendor/bin/pest
+    volumes:
+      - ../:/var/www/html
+    networks:
+      - kcdev_net
+      
 networks:
   kcdev_net:
     external: true

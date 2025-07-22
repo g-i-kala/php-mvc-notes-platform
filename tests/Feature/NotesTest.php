@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 it('loads the notes index page', function (): void {
     $client = new Client();
-    $response = $client->get('http://localhost:8000/notes');
+    $response = $client->get('http://nginx/notes');
 
     expect($response->getStatusCode())->toBe(200);
 });
