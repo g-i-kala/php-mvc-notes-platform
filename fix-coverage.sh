@@ -1,0 +1,1 @@
+sed -i '' 's#/var/www/html/##g' ../test-reports/coverage.xml
